@@ -9,22 +9,46 @@ interface Props {
 
 
 function Signup(props: Props): JSX.Element{
+
    const {register, handleSubmit} = useForm();
+   const API_ENDPOINT = '/api/v1/auth/signup';
    
-   
+   async function signup(data: any) {
+
+      try {
+         let response: any = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: {
+               Accept: 'application/json',
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+         });
+
+         response = response.json();
+         
+         if (response.message && response.detail) {
+            throw new Error(response.detail);
+         }
+
+      } catch (err) {
+         
+         console.log(err);
+         if (err instanceof Error) {
+               throw err;
+         }
+         if (typeof err === 'string') {
+               throw new Error(err);
+         }
+         throw new Error('Sign up error!');
+      }
+   }
 
    function onSubmit(data: any){
       console.log(data);
-      fetch('/api/v1/auth/signup', {
-         method: 'POST',
-         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(data)
-      })
-         .then(res => res.json())
-         .then(data => console.log(data.detail))
+      signup(data)
+      .then(() => console.log('cool'))
+      .catch((err) => console.log(err));
    }
    const signUpButton = {
       color: "white",
