@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import "../../style/auth.css";
 
@@ -10,11 +10,10 @@ interface Props {
 
 function Signup(props: Props): JSX.Element{
    const {register, handleSubmit} = useForm();
-   
-   
+   const [successful, setSuccessful] = useState("");
+   const [failed, setFailed] = useState("");
 
    function onSubmit(data: any){
-      console.log(data);
       fetch('/api/v1/auth/signup', {
          method: 'POST',
          headers: {
@@ -24,7 +23,16 @@ function Signup(props: Props): JSX.Element{
          body: JSON.stringify(data)
       })
          .then(res => res.json())
-         .then(data => console.log(data.detail))
+         .then(data => {
+            if(data.message == "Created!"){
+               setFailed(() => "");
+               setSuccessful("Sign Up Successful!");
+               setTimeout(()=>props.setComponent(), 5000);
+            }
+            else{
+               setFailed(() => data.detail);
+            }
+         })
    }
    const signUpButton = {
       color: "white",
@@ -38,9 +46,17 @@ function Signup(props: Props): JSX.Element{
    const inputField = {
       marginTop: 20
    }
+   const success = {
+      color: "green"
+   }
+   const fail = {
+      color: "red"
+   }
+
    return(
       <div className = "oneAboveAll">
-         <p></p>
+         <p style={success} className = "p">{successful}</p><br/>
+         <p style={fail} className = "p">{failed}</p><br/>
          <button style={signUpButton}>Sign Up</button>
          <button onClick = {()=>props.setComponent()}>Sign In</button>
          <form className = "form" onSubmit = {handleSubmit(onSubmit)}>

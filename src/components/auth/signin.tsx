@@ -14,7 +14,18 @@ function Signin(props: Props): JSX.Element{
    
 
    function onSubmit(data: any){
-      console.log(data);
+      fetch('/api/v1/auth/login', {
+         method: 'POST',
+         headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(data)
+      })
+         .then(res => res.json())
+         .then(data => {
+            console.log(data);
+         });
    }
    const signInButton = {
       color: "white",

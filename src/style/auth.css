@@ -47,3 +47,10 @@ button:hover{
    margin-top: 80px;
    width: 425px;
 }
+
+.p{
+   margin: auto;
+   width: 425px;
+   font-size: 28px;
+   text-align: center;
+}
