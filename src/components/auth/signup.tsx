@@ -13,6 +13,8 @@ function Signup(props: Props): JSX.Element{
    const [successful, setSuccessful] = useState("");
    const [failed, setFailed] = useState("");
 
+   
+
    function onSubmit(data: any){
       fetch('/api/v1/auth/signup', {
          method: 'POST',
@@ -27,7 +29,7 @@ function Signup(props: Props): JSX.Element{
             if(data.message == "Created!"){
                setFailed(() => "");
                setSuccessful("Sign Up Successful!");
-               setTimeout(()=>props.setComponent(), 5000);
+               setTimeout(()=>props.setComponent(), 2000);
             }
             else{
                setFailed(() => data.detail);
