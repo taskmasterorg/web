@@ -1,16 +1,13 @@
 import React,{useState} from "react";
 import { useForm } from "react-hook-form";
 import "../../style/auth.css";
+import {Link, useNavigate} from "react-router-dom";
 
 
-interface Props {
-   setComponent: () => void
-}
-
-
-function Signin(props: Props): JSX.Element{
+function Signin(): JSX.Element{
    const {register, handleSubmit} = useForm();
    const [failed, setFailed] = useState("");
+   const navigate = useNavigate();
    
 
    function onSubmit(data: any){
@@ -27,6 +24,7 @@ function Signin(props: Props): JSX.Element{
          console.log(data);
          if(data.message == "Okay"){
             console.log("successful");
+            navigate(`/Home`);
          }
          else{
             setFailed(() => data.detail);
@@ -46,17 +44,17 @@ function Signin(props: Props): JSX.Element{
       color: "red"
    }
    return(
-      <div className = "oneAboveAll">
-         <p style={fail} className = "p">{failed}</p><br/>
-         <button onClick = {()=>props.setComponent()}>Sign Up</button>
-         <button style={signInButton}>Sign In</button>
-         <form className = "form" onSubmit = {handleSubmit(onSubmit)}>
+      <div className = "auth_oneAboveAll">
+         <p style={fail} className = "auth_p">{failed}</p><br/>
+         <Link className="auth_link" to="/">Sign Up</Link>
+         <button className = "auth_button" style={signInButton}>Sign In</button>
+         <form className = "auth_form" onSubmit = {handleSubmit(onSubmit)}>
             <br/><br/>
-            <input className = "input" {...register("email", {required: true})} name="email"  placeholder="Email"/>
+            <input className = "auth_input" {...register("email", {required: true})} name="email"  placeholder="Email"/>
             <br/>
-            <input className = "input" {...register("password", {required: true})} name="password" placeholder="Password"/>
+            <input className = "auth_input" {...register("password", {required: true})} name="password" placeholder="Password"/>
             <br/>
-            <button style={submitButton} type="submit">Submit</button> 
+            <button className = "auth_button" style={submitButton} type="submit">Submit</button> 
          </form>
       </div>
    );

@@ -1,4 +1,4 @@
-button{
+.auth_button{
    width: 191px;
    margin: 18px 10px;
    padding: 10px 25px;
@@ -10,13 +10,34 @@ button{
    border-radius: 10px
 }
 
-button:hover{
+.auth_button:hover{
    scale: 1.1;
    background-color: black;
    color: white;
 }
 
-.form{
+.auth_link{
+   display: inline-block;
+   text-decoration: none;
+   width: 135px;
+   margin: 18px 10px;
+   text-align: center;
+   padding: 10px 25px;
+   padding-bottom: 10px;
+   font-size: 36px;
+   color: black;
+   background-color: white;
+   border: 3px solid black;
+   border-radius: 10px
+}
+
+.auth_link:hover{
+   scale: 1.1;
+   background-color: black;
+   color: white;
+}
+
+.auth_form{
    margin: 20px 10px;
    padding: 10px 25px;
    width: 350px;
@@ -29,7 +50,7 @@ button:hover{
 }
 
 
-.input{
+.auth_input{
    outline: 0;
    display: block;
    width: 220px;
@@ -42,13 +63,13 @@ button:hover{
    background-color: white;
 }
 
-.oneAboveAll{
+.auth_oneAboveAll{
    margin: auto;
    margin-top: 80px;
    width: 425px;
 }
 
-.p{
+.auth_p{
    margin: auto;
    width: 425px;
    font-size: 28px;

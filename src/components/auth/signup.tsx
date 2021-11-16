@@ -1,17 +1,13 @@
 import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import "../../style/auth.css";
+import {Link, useNavigate} from "react-router-dom"
 
-
-interface Props {
-   setComponent: () => void
-}
-
-
-function Signup(props: Props): JSX.Element{
+function Signup(): JSX.Element{
    const {register, handleSubmit} = useForm();
    const [successful, setSuccessful] = useState("");
    const [failed, setFailed] = useState("");
+   const navigate = useNavigate();
 
    
 
@@ -29,7 +25,7 @@ function Signup(props: Props): JSX.Element{
             if(data.message == "Created!"){
                setFailed(() => "");
                setSuccessful("Sign Up Successful!");
-               setTimeout(()=>props.setComponent(), 2000);
+               setTimeout(() => navigate(`/SignIn`), 2000);
             }
             else{
                setFailed(() => data.detail);
@@ -56,18 +52,18 @@ function Signup(props: Props): JSX.Element{
    }
 
    return(
-      <div className = "oneAboveAll">
-         <p style={success} className = "p">{successful}</p><br/>
-         <p style={fail} className = "p">{failed}</p><br/>
-         <button style={signUpButton}>Sign Up</button>
-         <button onClick = {()=>props.setComponent()}>Sign In</button>
-         <form className = "form" onSubmit = {handleSubmit(onSubmit)}>
-            <input style={inputField} className = "input" {...register("firstName", {required: true})} name="firstName"  placeholder="First Name"/>
-            <input style={inputField} className = "input" {...register("lastName", {required: true})} name="lastName"  placeholder="Last Name"/>
-            <input style={inputField} className = "input" {...register("email", {required: true})} name="email"  placeholder="Email"/>
-            <input style={inputField} className = "input" {...register("password", {required: true})} name="password" placeholder="Password"/>
+      <div className = "auth_oneAboveAll">
+         <p style={success} className = "auth_p">{successful}</p><br/>
+         <p style={fail} className = "auth_p">{failed}</p><br/>
+         <button className = "auth_button" style={signUpButton}>Sign Up</button>
+         <Link className="auth_link" to="/SignIn">Sign In</Link>
+         <form className = "auth_form" onSubmit = {handleSubmit(onSubmit)}>
+            <input style={inputField} className = "auth_input" {...register("firstName", {required: true})} name="firstName"  placeholder="First Name"/>
+            <input style={inputField} className = "auth_input" {...register("lastName", {required: true})} name="lastName"  placeholder="Last Name"/>
+            <input style={inputField} className = "auth_input" {...register("email", {required: true})} name="email"  placeholder="Email"/>
+            <input style={inputField} className = "auth_input" {...register("password", {required: true})} name="password" placeholder="Password"/>
             <br/>
-            <button style={submitButton} type="submit">Submit</button> 
+            <button className = "auth_button" style={submitButton} type="submit">Submit</button> 
          </form>
       </div>
    );
