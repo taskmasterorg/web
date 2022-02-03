@@ -22,7 +22,7 @@ function Signin(): JSX.Element{
       .then(res => res.json())
       .then(data => {
          console.log(data);
-         if(data.message == "Okay"){
+         if(data.jwt){
             console.log("successful");
             navigate(`/Home`);
          }
